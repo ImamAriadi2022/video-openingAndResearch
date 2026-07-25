@@ -1,6 +1,6 @@
 import React from 'react';
-import { ASSETS } from '../config/assets.js';
-import { fade, scale, slide, interpolate, easeOut } from '../utils/animation.js';
+import { HandHoldingPhoneMockup } from '../components/HandHoldingPhoneMockup.jsx';
+import { fade, slide, interpolate, easeOut } from '../utils/animation.js';
 
 export function ConvenienceScene({ currentFrame }) {
   // Scene frame range: 150 to 240
@@ -29,10 +29,10 @@ export function ConvenienceScene({ currentFrame }) {
       className="absolute inset-0 bg-[#ffffff] flex items-center justify-center overflow-hidden"
       style={{ opacity: combinedOpacity }}
     >
-      {/* Visual Composition: matching Slide 16_9 - 4.png layout */}
+      {/* Visual Composition: matching Slide 16_9 - 4.png layout style */}
       <div className="relative w-[1920px] h-[1080px] flex items-center justify-between px-32">
         
-        {/* Left: Hand holding phone illustration from Slide 16_9 - 4.png */}
+        {/* Left: Programmatic Hand holding phone illustration */}
         <div 
           className="relative w-[1000px] h-[900px] flex items-center justify-center"
           style={{
@@ -40,29 +40,25 @@ export function ConvenienceScene({ currentFrame }) {
             transformOrigin: 'bottom center'
           }}
         >
-          <img 
-            src={ASSETS.desain.slide4} 
-            alt="Hand holding phone" 
-            className="max-h-[90%] object-contain"
-          />
-
-          {/* In-screen Transaction Feedback overlay */}
-          <div className="absolute top-[320px] left-[450px] w-[210px] h-[370px] flex flex-col justify-center gap-3 p-3 select-none">
-            {text1Opacity > 0.05 && (
-              <div className="w-full bg-cyan-50 border border-cyan-200 rounded-xl p-2.5 shadow-sm text-center transform scale-95 animate-fade-in flex flex-col items-center">
-                <span className="text-xl">💸</span>
-                <span className="text-[11px] font-extrabold text-cyan-800 uppercase tracking-wider mt-1">Transfer</span>
-                <span className="text-[9px] font-bold text-cyan-600">SELESAI ✓</span>
-              </div>
-            )}
-            {text2Opacity > 0.05 && (
-              <div className="w-full bg-blue-50 border border-blue-200 rounded-xl p-2.5 shadow-sm text-center transform scale-95 animate-fade-in flex flex-col items-center">
-                <span className="text-xl">💳</span>
-                <span className="text-[11px] font-extrabold text-blue-800 uppercase tracking-wider mt-1">Pembayaran</span>
-                <span className="text-[9px] font-bold text-blue-600">BERHASIL ✓</span>
-              </div>
-            )}
-          </div>
+          <HandHoldingPhoneMockup>
+            {/* In-screen Transaction Feedback overlay */}
+            <div className="w-full h-full bg-[#f8fafc] flex flex-col justify-center gap-3 p-4 font-sans select-none">
+              {text1Opacity > 0.05 && (
+                <div className="w-full bg-cyan-50 border border-cyan-200 rounded-xl p-3 shadow-sm text-center transform scale-95 animate-fade-in flex flex-col items-center">
+                  <span className="text-2xl">💸</span>
+                  <span className="text-[12px] font-extrabold text-cyan-800 uppercase tracking-wider mt-1">Transfer</span>
+                  <span className="text-[10px] font-bold text-cyan-600">SELESAI ✓</span>
+                </div>
+              )}
+              {text2Opacity > 0.05 && (
+                <div className="w-full bg-blue-50 border border-blue-200 rounded-xl p-3 shadow-sm text-center transform scale-95 animate-fade-in flex flex-col items-center">
+                  <span className="text-2xl">💳</span>
+                  <span className="text-[12px] font-extrabold text-blue-800 uppercase tracking-wider mt-1">Pembayaran</span>
+                  <span className="text-[10px] font-bold text-blue-600">BERHASIL ✓</span>
+                </div>
+              )}
+            </div>
+          </HandHoldingPhoneMockup>
         </div>
 
         {/* Right: Typography matching the video design language */}
@@ -107,3 +103,4 @@ export function ConvenienceScene({ currentFrame }) {
     </div>
   );
 }
+

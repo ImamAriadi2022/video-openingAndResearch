@@ -1,6 +1,6 @@
 import React from 'react';
-import { ASSETS } from '../config/assets.js';
-import { fade, scale, slide, interpolate, easeOut } from '../utils/animation.js';
+import { HandHoldingPhoneMockup } from '../components/HandHoldingPhoneMockup.jsx';
+import { fade, slide, interpolate, easeOut } from '../utils/animation.js';
 
 export function CredentialsScene({ currentFrame }) {
   // Scene frame range: 870 to 960
@@ -29,10 +29,10 @@ export function CredentialsScene({ currentFrame }) {
         style={{ opacity: warningTintOpacity }}
       />
 
-      {/* Visual Composition: matching Slide 16_9 - 4.png layout */}
+      {/* Visual Composition: matching Slide 16_9 - 4.png layout style */}
       <div className="relative w-[1920px] h-[1080px] flex items-center justify-between px-32 z-10">
         
-        {/* Left: Hand holding phone illustration */}
+        {/* Left: Programmatic Hand holding phone illustration */}
         <div 
           className="relative w-[1000px] h-[900px] flex items-center justify-center"
           style={{
@@ -40,27 +40,23 @@ export function CredentialsScene({ currentFrame }) {
             transformOrigin: 'bottom center'
           }}
         >
-          <img 
-            src={ASSETS.desain.slide4} 
-            alt="Hand holding phone" 
-            className="max-h-[90%] object-contain"
-          />
-
-          {/* In-screen credentials valid overlay */}
-          <div className="absolute top-[300px] left-[450px] w-[210px] h-[370px] flex flex-col justify-center gap-3 p-3 select-none">
-            <div className="w-full bg-emerald-50 border border-emerald-300 rounded-xl p-3 shadow-md text-center transform scale-95 flex flex-col items-center">
-              <span className="text-2xl text-emerald-500">✓</span>
-              <span className="text-[11px] font-extrabold text-emerald-800 uppercase tracking-wider mt-1">Credentials Valid</span>
-              <span className="text-[9px] text-slate-500 mt-1">Akses Diterima</span>
-            </div>
-            
-            {warningTintOpacity > 0.02 && (
-              <div className="w-full bg-amber-50 border border-amber-300 rounded-xl p-2.5 shadow-sm text-center transform scale-95 animate-fade-in flex items-center gap-2">
-                <span className="text-base">⚠️</span>
-                <span className="text-[8px] font-bold text-amber-800 text-left leading-normal">Pengakses Terindikasi Mencurigakan!</span>
+          <HandHoldingPhoneMockup>
+            {/* In-screen credentials valid overlay */}
+            <div className="w-full h-full bg-[#f8fafc] flex flex-col justify-center gap-3 p-4 font-sans select-none">
+              <div className="w-full bg-emerald-50 border border-emerald-300 rounded-xl p-3 shadow-md text-center transform scale-95 flex flex-col items-center">
+                <span className="text-2xl text-emerald-500">✓</span>
+                <span className="text-[12px] font-extrabold text-emerald-800 uppercase tracking-wider mt-1">Credentials Valid</span>
+                <span className="text-[10px] text-slate-500 mt-1">Akses Diterima</span>
               </div>
-            )}
-          </div>
+              
+              {warningTintOpacity > 0.02 && (
+                <div className="w-full bg-amber-50 border border-amber-300 rounded-xl p-3 shadow-sm text-center transform scale-95 animate-fade-in flex items-center gap-2">
+                  <span className="text-xl">⚠️</span>
+                  <span className="text-[10px] font-bold text-amber-800 text-left leading-normal">Pengakses Terindikasi Mencurigakan!</span>
+                </div>
+              )}
+            </div>
+          </HandHoldingPhoneMockup>
         </div>
 
         {/* Right: Typography matching the video design language */}

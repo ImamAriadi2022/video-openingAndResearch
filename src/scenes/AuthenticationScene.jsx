@@ -1,5 +1,5 @@
 import React from 'react';
-import { ASSETS } from '../config/assets.js';
+import { HandHoldingPhoneMockup } from '../components/HandHoldingPhoneMockup.jsx';
 import { fade, scale, slide, interpolate, easeOut } from '../utils/animation.js';
 
 export function AuthenticationScene({ currentFrame }) {
@@ -11,11 +11,11 @@ export function AuthenticationScene({ currentFrame }) {
   // Hand & phone scaling
   const handScale = interpolate(currentFrame, [480, 570], [1.0, 1.05], { easing: easeOut });
 
-  // PIN check verification (enters frame 485, verified frame 510)
+  // PIN check verification (enters frame 485, verified frame 505)
   const pinEntered = currentFrame >= 485;
   const pinVerified = currentFrame >= 505;
 
-  // OTP check verification (enters frame 515, verified frame 540)
+  // OTP check verification (enters frame 515, verified frame 535)
   const otpEntered = currentFrame >= 515;
   const otpVerified = currentFrame >= 535;
 
@@ -31,10 +31,10 @@ export function AuthenticationScene({ currentFrame }) {
       className="absolute inset-0 bg-[#ffffff] flex items-center justify-center overflow-hidden"
       style={{ opacity: combinedOpacity }}
     >
-      {/* Visual Composition: matching Slide 16_9 - 4.png layout */}
+      {/* Visual Composition: matching Slide 16_9 - 4.png layout style */}
       <div className="relative w-[1920px] h-[1080px] flex items-center justify-between px-32">
         
-        {/* Left: Hand holding phone illustration */}
+        {/* Left: Programmatic Hand holding phone illustration */}
         <div 
           className="relative w-[1000px] h-[900px] flex items-center justify-center"
           style={{
@@ -42,33 +42,29 @@ export function AuthenticationScene({ currentFrame }) {
             transformOrigin: 'bottom center'
           }}
         >
-          <img 
-            src={ASSETS.desain.slide4} 
-            alt="Hand holding phone" 
-            className="max-h-[90%] object-contain"
-          />
-
-          {/* In-screen inputs for PIN & OTP */}
-          <div className="absolute top-[300px] left-[450px] w-[210px] h-[370px] flex flex-col justify-center gap-3 p-2.5 select-none">
-            {pinEntered && (
-              <div className={`w-full border rounded-xl p-2.5 shadow-sm text-center transform scale-95 transition-all ${
-                pinVerified ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-slate-50 border-slate-200 text-slate-400'
-              }`}>
-                <div className="text-[9px] font-bold uppercase tracking-widest text-slate-400">PIN</div>
-                <div className="text-sm font-mono tracking-widest mt-0.5">••••••</div>
-                <div className="text-[9px] font-black mt-1">{pinVerified ? '✓ VERIFIED' : 'WAIT...'}</div>
-              </div>
-            )}
-            {otpEntered && (
-              <div className={`w-full border rounded-xl p-2.5 shadow-sm text-center transform scale-95 transition-all ${
-                otpVerified ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-slate-50 border-slate-200 text-slate-400'
-              }`}>
-                <div className="text-[9px] font-bold uppercase tracking-widest text-slate-400">OTP</div>
-                <div className="text-sm font-mono tracking-widest mt-0.5">849201</div>
-                <div className="text-[9px] font-black mt-1">{otpVerified ? '✓ VERIFIED' : 'WAIT...'}</div>
-              </div>
-            )}
-          </div>
+          <HandHoldingPhoneMockup>
+            {/* In-screen inputs for PIN & OTP */}
+            <div className="w-full h-full bg-[#f8fafc] flex flex-col justify-center gap-3 p-4 font-sans select-none">
+              {pinEntered && (
+                <div className={`w-full border rounded-xl p-3 shadow-sm text-center transform scale-95 transition-all ${
+                  pinVerified ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-slate-50 border-slate-200 text-slate-400'
+                }`}>
+                  <div className="text-[9px] font-bold uppercase tracking-widest text-slate-400">PIN</div>
+                  <div className="text-sm font-mono tracking-widest mt-0.5">••••••</div>
+                  <div className="text-[9px] font-black mt-1">{pinVerified ? '✓ VERIFIED' : 'WAIT...'}</div>
+                </div>
+              )}
+              {otpEntered && (
+                <div className={`w-full border rounded-xl p-3 shadow-sm text-center transform scale-95 transition-all ${
+                  otpVerified ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-slate-50 border-slate-200 text-slate-400'
+                }`}>
+                  <div className="text-[9px] font-bold uppercase tracking-widest text-slate-400">OTP</div>
+                  <div className="text-sm font-mono tracking-widest mt-0.5">849201</div>
+                  <div className="text-[9px] font-black mt-1">{otpVerified ? '✓ VERIFIED' : 'WAIT...'}</div>
+                </div>
+              )}
+            </div>
+          </HandHoldingPhoneMockup>
         </div>
 
         {/* Right: Typography matching the video design language */}

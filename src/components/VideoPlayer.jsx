@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useVideoTimeline } from '../hooks/useVideoTimeline.js';
 import { VideoStage } from './VideoStage.jsx';
 import { VideoControls } from './VideoControls.jsx';
+import { SCENES } from '../config/timeline.js';
 
 export function VideoPlayer() {
   const timeline = useVideoTimeline();
@@ -49,23 +50,24 @@ export function VideoPlayer() {
     );
   }
 
-  // Developer Preview Mode
+  // Developer Preview Mode with Split Workspace Layout
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between">
+    <div className="h-screen bg-slate-950 text-slate-100 flex flex-col justify-between overflow-hidden">
+      
       {/* Top Header */}
-      <header className="bg-slate-900/80 backdrop-blur border-b border-slate-800 px-6 py-3 flex items-center justify-between z-20">
+      <header className="bg-slate-900/90 backdrop-blur border-b border-slate-800 px-6 py-3 flex items-center justify-between z-20 flex-shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/40 text-cyan-400 flex items-center justify-center font-bold text-sm">
+          <div className="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/40 text-blue-400 flex items-center justify-center font-bold text-lg shadow-sm">
             🛡️
           </div>
           <div>
-            <h1 className="font-extrabold text-lg tracking-tight text-white flex items-center gap-2">
-              SENTINEL<span className="text-cyan-400">-ID</span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-normal">
-                Opening Motion Graphic
+            <h1 className="font-extrabold text-base tracking-tight text-white flex items-center gap-2">
+              Sentinel-ID <span className="text-[#00a2ff]">Motion Studio</span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20 font-normal">
+                Composition Engine
               </span>
             </h1>
-            <p className="text-[11px] text-slate-400">Dizipher Team • Hackathon Video Composition Engine</p>
+            <p className="text-[10px] text-slate-400">Dizipher Hackathon Video System • Rebuild & Motion Render Pipeline</p>
           </div>
         </div>
 
@@ -76,20 +78,63 @@ export function VideoPlayer() {
         </div>
       </header>
 
-      {/* Main Video Viewport Stage */}
-      <main 
-        id="video-preview-container" 
-        className="flex-1 flex items-center justify-center relative min-h-[600px] overflow-hidden"
-      >
-        <VideoStage 
-          currentFrame={timeline.currentFrame} 
-          subtitlesEnabled={timeline.subtitlesEnabled}
-          isRenderMode={false}
-        />
-      </main>
+      {/* Workspace Area: Sidebar + Stage */}
+      <div className="flex-1 flex overflow-hidden relative">
+        
+        {/* Left Side: Interactive Scene Sidebar */}
+        <aside className="w-80 bg-slate-900/40 border-r border-slate-800/80 flex flex-col overflow-y-auto flex-shrink-0 p-4 select-none">
+          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 px-2">Daftar Scene</h3>
+          
+          <div className="space-y-1">
+            {SCENES.map((scene) => {
+              const isActive = timeline.currentScene && timeline.currentScene.id === scene.id;
+              
+              return (
+                <button
+                  key={scene.id}
+                  onClick={() => timeline.seekToFrame(scene.startFrame)}
+                  className={`w-full text-left px-3.5 py-3 rounded-xl transition-all flex flex-col gap-1 border ${
+                    isActive 
+                      ? 'bg-blue-600/15 border-blue-500 text-white shadow-md' 
+                      : 'bg-transparent border-transparent hover:bg-slate-800/50 text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-black tracking-tight">{scene.name}</span>
+                    <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md ${
+                      isActive ? 'bg-blue-500/20 text-blue-400' : 'bg-slate-800 text-slate-500'
+                    }`}>
+                      {scene.startFrame} F
+                    </span>
+                  </div>
+                  {scene.narration && (
+                    <p className={`text-[10px] line-clamp-2 leading-relaxed ${
+                      isActive ? 'text-slate-200' : 'text-slate-500'
+                    }`}>
+                      "{scene.narration}"
+                    </p>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </aside>
+
+        {/* Right Side: Video Preview Stage */}
+        <main 
+          id="video-preview-container" 
+          className="flex-1 flex items-center justify-center relative bg-slate-950 overflow-hidden"
+        >
+          <VideoStage 
+            currentFrame={timeline.currentFrame} 
+            subtitlesEnabled={timeline.subtitlesEnabled}
+            isRenderMode={false}
+          />
+        </main>
+      </div>
 
       {/* Bottom Interactive Controls */}
-      <footer className="z-20 bg-slate-950 p-4">
+      <footer className="z-20 bg-slate-950 p-4 border-t border-slate-900 flex-shrink-0">
         <VideoControls 
           timeline={timeline}
           onToggleFullscreen={handleToggleFullscreen}
@@ -98,3 +143,6 @@ export function VideoPlayer() {
     </div>
   );
 }
+
+export default VideoPlayer;
+

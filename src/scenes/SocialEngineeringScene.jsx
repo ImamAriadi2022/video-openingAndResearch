@@ -1,6 +1,6 @@
 import React from 'react';
-import { ASSETS } from '../config/assets.js';
-import { fade, scale, slide, interpolate, easeOut } from '../utils/animation.js';
+import { HandHoldingPhoneMockup } from '../components/HandHoldingPhoneMockup.jsx';
+import { fade, scale, slide, easeOut } from '../utils/animation.js';
 
 export function SocialEngineeringScene({ currentFrame }) {
   // Scene frame range: 390 to 480
@@ -29,7 +29,7 @@ export function SocialEngineeringScene({ currentFrame }) {
       {/* Visual Composition: matching Slide 6 & 7 layouts */}
       <div className="relative w-[1920px] h-[1080px] flex items-center justify-between px-32">
         
-        {/* Left: Hand holding phone illustration (shifting left) */}
+        {/* Left: Programmatic Hand holding phone illustration (shifting left) */}
         <div 
           className="relative w-[1000px] h-[900px] flex items-center justify-center"
           style={{
@@ -37,11 +37,37 @@ export function SocialEngineeringScene({ currentFrame }) {
             transformOrigin: 'bottom center'
           }}
         >
-          <img 
-            src={ASSETS.desain.slide5} 
-            alt="Hand holding phone" 
-            className="max-h-[90%] object-contain"
-          />
+          <HandHoldingPhoneMockup>
+            {/* Active Call screen inside phone */}
+            <div className="w-full h-full bg-[#e2e8f0]/30 flex flex-col items-center justify-between p-4 font-sans select-none pt-12 pb-10">
+              
+              {/* Call contact Avatar */}
+              <div className="flex flex-col items-center gap-3 mt-10">
+                <div className="w-20 h-20 rounded-full bg-blue-500/10 border-2 border-blue-500 flex items-center justify-center text-blue-500 shadow-md">
+                  <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                
+                {/* Number & Unknown caller label */}
+                <div className="text-center mt-2">
+                  <div className="text-base font-black text-slate-900 tracking-tight">+62764783726648</div>
+                  <div className="text-[11px] font-bold text-slate-500 mt-1 uppercase tracking-wider">Telpon tidak dikenal</div>
+                </div>
+              </div>
+
+              {/* Decline Button in Center (representing active/answered call state) */}
+              <div className="flex flex-col items-center gap-1.5 mb-4">
+                <div className="w-12 h-12 rounded-full bg-red-500 flex items-center justify-center text-white shadow-lg border border-red-600 animate-pulse">
+                  <svg className="w-6 h-6 transform rotate-[135deg]" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
+                </div>
+                <span className="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider">Tutup</span>
+              </div>
+
+            </div>
+          </HandHoldingPhoneMockup>
         </div>
 
         {/* Right: Sequential Chat Bubbles matching Slide 6 & 7 */}
@@ -82,3 +108,4 @@ export function SocialEngineeringScene({ currentFrame }) {
     </div>
   );
 }
+
